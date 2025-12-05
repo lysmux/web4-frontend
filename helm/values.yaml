@@ -1,0 +1,16 @@
+replicaCount: 2
+
+version: ""
+
+image:
+  repository: ghcr.io/lysmux/web4-frontend
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
+config:
+  apiUrl: https://web4.lysmux.dev/api

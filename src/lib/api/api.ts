@@ -5,18 +5,19 @@ import type { AuthResponse } from '$lib/api/users.ts';
 import type { ApiResponse } from '$lib/api/types';
 import { toasts } from 'svelte-toasts';
 import { ERRORS_MAP } from '$lib/api/errors.ts';
+import { env } from '$env/dynamic/public';
 
 const ACCESS_TOKEN_EXPIRE_AT_KEY = 'accessTokenExpireAt';
 const ACCESS_TOKEN_KEY = 'accessToken';
 
 const apiClient = axios.create({
-	baseURL: 'https://web4.lysmux.dev/api',
+	baseURL: env.PUBLIC_API_URL,
 	timeout: 10000,
 	withCredentials: true
 });
 
 const refreshApiClient = axios.create({
-	baseURL: 'https://web4.lysmux.dev/api',
+	baseURL: env.PUBLIC_API_URL,
 	withCredentials: true
 });
 
