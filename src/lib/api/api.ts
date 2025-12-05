@@ -41,7 +41,7 @@ function clearAccessToken(): void {
 	localStorage.removeItem(ACCESS_TOKEN_KEY);
 }
 
-function isAccessTokenValid(): boolean {
+export function isAccessTokenValid(): boolean {
 	const expireAt = Number(localStorage.getItem(ACCESS_TOKEN_EXPIRE_AT_KEY));
 	const token = localStorage.getItem(ACCESS_TOKEN_KEY);
 

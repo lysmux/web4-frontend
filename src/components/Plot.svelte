@@ -62,11 +62,18 @@
 
 	const handleClick = (e: MouseEvent) => {
 		const rect = canvas.getBoundingClientRect();
-		const canvasX = e.clientX - rect.left;
-		const canvasY = e.clientY - rect.top;
+		const cssX = e.clientX - rect.left;
+		const cssY = e.clientY - rect.top;
 
-		const x = ((canvasX - rect.width / 2) / drawer.options.step / 4) * radius;
-		const y = (-(canvasY - rect.height / 2) / drawer.options.step / 4) * radius;
+		const scaleX = canvas.width / rect.width;
+		const scaleY = canvas.height / rect.height;
+
+		const canvasX = cssX * scaleX;
+		const canvasY = cssY * scaleY;
+
+		const x = ((canvasX - canvas.width / 2) / drawer.options.step / 4) * radius;
+		const y = (-(canvasY - canvas.height / 2) / drawer.options.step / 4) * radius;
+
 
 		onClick?.(round(x,  3), round(y,  3));
 	};

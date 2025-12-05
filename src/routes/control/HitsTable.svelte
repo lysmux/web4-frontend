@@ -26,19 +26,55 @@
 			<Cell>Y</Cell>
 			<Cell>R</Cell>
 			<Cell>Попадание</Cell>
-			<Cell>Время выполнения</Cell>
+			<Cell>Выполнение</Cell>
 		</Row>
 	{/snippet}
 
 	{#snippet body()}
 		{#each data as result (result.id)}
 			<Row>
-				<Cell>{new Date(result.createdAt).toLocaleTimeString()}</Cell>
-				<Cell>{result.x}</Cell>
-				<Cell>{result.y}</Cell>
-				<Cell>{result.r}</Cell>
-				<Cell>{result.hit ? "Да" : "Нет"}</Cell>
-				<Cell>{result.executionTime} нс</Cell>
+				<Cell
+					attr="Время"
+					mdRow={2} mdCol={1}
+					smRow={1} smCol={1}
+				>
+					{new Date(result.createdAt).toLocaleTimeString()}
+				</Cell>
+				<Cell
+					attr="X"
+					mdRow={1} mdCol={1}
+					smRow={2} smCol={1}
+				>
+					{result.x}
+				</Cell>
+				<Cell
+					attr="Y"
+					mdRow={1} mdCol={2}
+					smRow={2} smCol={2}
+				>
+					{result.y}
+				</Cell>
+				<Cell
+					attr="R"
+					mdRow={1} mdCol={3}
+					smRow={1} smCol={2}
+				>
+					{result.r}
+				</Cell>
+				<Cell
+					attr="Попадание"
+					mdRow={2} mdCol={2}
+					smRow={3} smCol={1}
+				>
+					{result.hit ? "Да" : "Нет"}
+				</Cell>
+				<Cell
+					attr="Выполнение"
+					mdRow={2} mdCol={3}
+					smRow={3} smCol={2}
+				>
+					{result.executionTime} мс
+				</Cell>
 			</Row>
 		{/each}
 	{/snippet}

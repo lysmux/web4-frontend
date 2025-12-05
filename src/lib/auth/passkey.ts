@@ -6,7 +6,7 @@ import type { AuthResponse } from '$lib/api/users.ts';
 
 export const passKeyAuth = async () => {
 	const resp = await apiClient.get('/auth/passkey/login');
-	const options = JSON.parse(resp.data.options);
+	const options = JSON.parse(resp.data.data.options);
 	const challenge = base64urlToArrayBuffer(options.challenge);
 
 	const publicKey: PublicKeyCredentialRequestOptions = {
@@ -36,13 +36,13 @@ export const passKeyAuth = async () => {
 
 	apiClient
 		.post<AuthResponse>('/auth/passkey/login', {
-			operationId: resp.data.operationId,
+			operationId: resp.data.data.operationId,
 			loginResponseJSON: credential
 		})
 		.then((resp) => resp.data)
 		.then((data) => {
 			updateAccessToken(data);
-			goto(resolve('/users/me'));
+			goto(resolve('/control'));
 		})
 		.catch((err) => {
 			toasts.add({
@@ -72,8 +72,7 @@ export const passKeyRegister = async () => {
 		});
 		return;
 	}
-	const options = resp.data;
-
+	const options = JSON.parse(resp.data.data.options);
 	// 2. Преобразуем challenge и user.id из base64url → ArrayBuffer
 	const challenge = base64urlToArrayBuffer(options.challenge);
 	const userHandle = base64urlToArrayBuffer(options.user.id);
@@ -109,6 +108,7 @@ export const passKeyRegister = async () => {
 			publicKey: publicKeyCredentialCreationOptions
 		})) as PublicKeyCredential;
 	} catch (err) {
+		console.error(err);
 		toasts.add({
 			title: `Отменено`,
 			description: 'Добавление ключа отменено',
@@ -123,7 +123,10 @@ export const passKeyRegister = async () => {
 
 	// 6. Отправляем на сервер
 	apiClient
-		.post('/auth/passkey/register', credential, { requireAuth: true })
+		.post('/auth/passkey/register', {
+			operationId: resp.data.data.operationId,
+			registerResponseJSON: credential
+		}, { requireAuth: true })
 		.then((resp) => resp.data)
 		.then((res) => {
 			toasts.add({

@@ -15,7 +15,7 @@
 		{#snippet toggle()}▼{/snippet}
 
 		{#snippet items()}
-			<li><a href={resolve("/")}>График</a></li>
+			<li><a href={resolve("/control")}>График</a></li>
 			<li><a href={resolve("/users/me")}>Профиль</a></li>
 			<li><a href="#" onclick={logout}>Выйти</a></li>
 		{/snippet}
@@ -30,6 +30,7 @@
     position: relative;
     display: flex;
     align-items: center;
+		width: 100%;
   }
 
   .heading {

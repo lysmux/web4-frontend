@@ -36,13 +36,15 @@
 <style lang="scss">
   .wrapper {
     background: #16151b;
+		color: white;
     width: 100%;
     height: 100%;
   }
 
   .container {
-    height: calc((100% - 60px)); // поменять на перменные. Тут из-за pagination padding
+    height: calc(100% - 60px); // поменять на перменные. Тут из-за pagination padding
     overflow-y: auto;
+		overflow-x: auto;
     border-radius: 10px;
 
     &::-webkit-scrollbar {
@@ -69,11 +71,14 @@
     border-collapse: collapse;
     width: 100%;
 
-    :global(td), :global(th) {
-      padding: 10px;
-      text-align: center;
-      vertical-align: middle;
-      height: 50px;
+    @media (max-width: 1000px) {
+			thead {
+				display: none;
+			}
+
+			:global(tr) {
+        background-color: #25252a;
+      }
     }
 
     thead {
@@ -93,18 +98,9 @@
     }
 
     tbody {
-      :global(tr:not(:last-child) td) {
-        border-bottom: 1px solid #a5b9c5;
-      }
-
-      :global(tr) {
-        background: #16151b;
-        color: #ffffff;
-
-        &:hover {
-          background: #ffffff;
-          color: #000000;
-        }
+      :global(tr:hover) {
+        background: #ffffff;
+        color: #000000;
       }
     }
   }
