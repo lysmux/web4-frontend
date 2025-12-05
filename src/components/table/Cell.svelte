@@ -22,10 +22,10 @@
 
 <td
 	data-label={attr}
-	data-mdRow={mdRow}
-	data-mdCol={mdCol}
-	data-smRow={smRow}
-	data-smCol={smCol}
+	data-mdrow={mdRow}
+	data-mdcol={mdCol}
+	data-smrow={smRow}
+	data-smcol={smCol}
 >
 	{@render children()}
 </td>
@@ -60,28 +60,28 @@
 
   @media (max-width: 1000px) and (min-width: 600px) {
     td {
-      grid-row: attr(data-mdRow number);
-      grid-column: attr(data-mdCol number);
+      grid-row: attr(data-mdrow number);
+      grid-column: attr(data-mdcol number);
     }
 
-    td[data-mdRow="2"] {
+    td[data-mdrow="2"] {
       border-bottom: none;
     }
-    td[data-mdCol="3"] {
+    td[data-mdcol="3"] {
       border-right: none;
     }
   }
 
   @media (max-width: 600px) {
     td {
-      grid-row: attr(data-smRow number);
-      grid-column: attr(data-smCol number);
+      grid-row: attr(data-smrow number);
+      grid-column: attr(data-smcol number);
     }
 
-    td[data-smRow="3"] {
+    td[data-smrow="3"] {
       border-bottom: none;
     }
-    td[data-smCol="2"] {
+    td[data-smcol="2"] {
       border-right: none;
     }
   }
