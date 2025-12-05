@@ -56,12 +56,13 @@ interface Style {
 export default class PlotDrawer {
     private readonly ctx: CanvasRenderingContext2D;
     private customShapes: Shape[] = [];
+		public options: PlotOptions;
 
 
     constructor(
         private canvas: HTMLCanvasElement,
 				private radius: number | undefined,
-        public options?: Partial<PlotOptions>,
+        options?: Partial<PlotOptions>,
     ) {
         this.options = {...DEFAULT_PLOT_OPTIONS, ...options};
         this.ctx = canvas.getContext("2d");

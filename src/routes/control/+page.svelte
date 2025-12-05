@@ -23,14 +23,14 @@
 	$effect(() => {
 		if (hitResults[currentPage] !== undefined) return;
 
-		// apiClient
-		// 	.get<PaginatedResponse<HitResult[]>>('/hits/list?page=' + (currentPage + 1))
-		// 	.then((response) => response.data)
-		// 	.then((data) => data.data)
-		// 	.then(data => {
-		// 		hitResults[currentPage] = data.list;
-		// 		resultsTotal = data.total;
-		// 	})
+		apiClient
+			.get<PaginatedResponse<HitResult[]>>('/hits/list?page=' + (currentPage + 1))
+			.then((response) => response.data)
+			.then((data) => data.data)
+			.then(data => {
+				hitResults[currentPage] = data.list;
+				resultsTotal = data.total;
+			})
 	})
 
 	const addHit = (hit: HitResult) => {

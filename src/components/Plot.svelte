@@ -23,24 +23,29 @@
 	let wrapper: HTMLDivElement;
 	let canvas: HTMLCanvasElement;
 
-	let drawer: PlotDrawer | null = $state(null);
+	let drawer: PlotDrawer | undefined = $state(undefined);
 
+	$effect(() => {
+		const dpr = devicePixelRatio.current;
+		resizeCanvas();
+	})
+
+	const resizeCanvas = () => {
+		if (canvas === undefined || wrapper === undefined) return;
+
+		const { width, height } = wrapper.getBoundingClientRect();
+		const dpr = devicePixelRatio.current || 1;
+
+		canvas.width = Math.floor(width * dpr);
+		canvas.height = Math.floor(height * dpr);
+
+		drawer?.update();
+	};
 
 	onMount(() => {
-		const resizeCanvas = () => {
-			const { width, height } = wrapper.getBoundingClientRect();
-
-			canvas.width = Math.floor(width * devicePixelRatio.current);
-			canvas.height = Math.floor(height * devicePixelRatio.current);
-
-			drawer?.update();
-		};
-
 		drawer = new PlotDrawer(canvas, radius);
-
-		resizeCanvas();
-
 		window.addEventListener('resize', resizeCanvas);
+		resizeCanvas();
 	});
 
 	$effect(() => {
@@ -61,6 +66,8 @@
 	});
 
 	const handleClick = (e: MouseEvent) => {
+		if (radius === undefined || drawer === undefined) return;
+
 		const rect = canvas.getBoundingClientRect();
 		const cssX = e.clientX - rect.left;
 		const cssY = e.clientY - rect.top;
@@ -73,7 +80,6 @@
 
 		const x = ((canvasX - canvas.width / 2) / drawer.options.step / 4) * radius;
 		const y = (-(canvasY - canvas.height / 2) / drawer.options.step / 4) * radius;
-
 
 		onClick?.(round(x,  3), round(y,  3));
 	};
